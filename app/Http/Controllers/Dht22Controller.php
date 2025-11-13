@@ -28,7 +28,13 @@ class Dht22Controller extends Controller
 
     public function getData()
     {
-        $dht = Dht22::first();
-        return response()->json($dht);
+        $dht =  Dht22::first();
+        $status = ($dht->temperature > 30) ? 'on' : 'off';
+
+        return response()->json([
+            'lamp' => $status,  
+            'temperature' => $dht->temperature,
+            'humidity' => $dht->humidity,
+        ]);
     }
 }
