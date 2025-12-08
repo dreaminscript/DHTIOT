@@ -37,4 +37,21 @@ class Dht22Controller extends Controller
             'humidity' => $dht->humidity,
         ]);
     }
+
+    public function updateNilaiMaksimal(Request $request)
+    {
+        $nilai = $request->nilai;
+        $jenisNilai = $request->jenis_nilai;
+        $dht = Dht22::first();
+
+        if ($jenisNilai == 'max_temperature') {
+            $dht->max_temperature = $nilai;
+            $dht->save();
+        } else if ($jenisNilai == 'max_humidity') {
+            $dht->max_humidity = $nilai;
+            $dht->save();
+        }
+
+        return redirect()->to('/');
+    }
 }
